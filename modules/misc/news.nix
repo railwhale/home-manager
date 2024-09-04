@@ -1703,6 +1703,15 @@ in {
           one place. See https://github.com/glanceapp/glance for more.
         '';
       }
+
+      {
+        time = "2024-08-07T01:09:01+00:00";
+        condition = config.programs.zsh.enable;
+        message = ''
+          The zsh module now supports absolute paths for
+          `programs.zsh.dotDir`.
+        '';
+      }
     ];
   };
 }
