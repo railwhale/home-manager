@@ -20,6 +20,7 @@ in
   options.programs.vesktop = {
     enable = lib.mkEnableOption "Vesktop, an alternate client for Discord with Vencord built-in";
     package = lib.mkPackageOption pkgs "vesktop" { };
+    middleClickScroll = lib.mkEnableOption "auto-scrolling via a middle mouse click";
     settings = lib.mkOption {
       type = jsonFormat.type;
       default = { };
@@ -120,7 +121,10 @@ in
     lib.mkMerge [
       {
         home.packages = [
-          (cfg.package.override { withSystemVencord = cfg.vencord.useSystem; })
+          (cfg.package.override {
+            withMiddleClickScroll = cfg.middleClickScroll;
+            withSystemVencord = cfg.vencord.useSystem;
+          })
         ];
       }
       (lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) { xdg.configFile = config; })
